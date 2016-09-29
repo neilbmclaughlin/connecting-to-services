@@ -3,10 +3,13 @@ module.exports = {
     nhsuk: [
       './assets/javascripts/nhsuk.js',
     ],
+    webtrends: [
+      './assets/javascripts/vendor/webtrends/webtrends.js',
+    ],
   },
 
   output: {
     path: './public/js/',
-    filename: 'nhsuk.bundle.js',
+    filename: '[name].bundle.js',
   },
 };
