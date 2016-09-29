@@ -10,7 +10,9 @@ script:
 - npm run upload-coverage-codacy
 deploy:
   skip_cleanup: true
-  provider: heroku
+  - provider:azure_web_apps
+  on: feature/minify-assets
+  - provider: heroku
   app:
     master: connecting-to-services
     feature/minify-assets: connecting-to-services-staging
