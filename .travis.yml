@@ -9,13 +9,14 @@ script:
 - npm run upload-coverage-coveralls
 - npm run upload-coverage-codacy
 deploy:
-  skip_cleanup: true
-  - provider:azure_web_apps
+- provider: azure_web_apps
   on: feature/minify-assets
-  - provider: heroku
+  skip_cleanup: true
+- provider: heroku
   app:
     master: connecting-to-services
     feature/minify-assets: connecting-to-services-staging
+  skip_cleanup: true
   api_key:
     secure: rFJfDfFI0LxwOhXqPtTrcqYPZhP2SZ0JC9cVl/hqoJRXDmXktkjyWWOG24S2PG5JpUo2BqCKJrjdEeRD8H47hqFDY/yVKNcGL3779r0nF13bKhcjdQoa4x1tJFgpizWS+owUeD+g2L/gqXVN85PzEapPVOPDvkeaa2JSUI3u/lJgGe6ctHrx2gpuJAvTs9Ve1ww9ic2uyDjkRTD4GCBjIM9C+I7MqGYdZXTDDpft0o5pH5go0EWIQBSwQaMHxRsu+KPKJd5l8Pec6WStsdIKcUhEOuE4xfibMtWFweu4KaMh++F+kphn6YfpLBM2+Up5wDXT4s9zg2Ub9hIyYYwT0s6p9a6FBx7MYN8sL64MeVjczbK3uf0bSKvCmybWzE0A8hg2aXZp55ZwdsboCHw75Oh/ePHpbtvpNcB0kXNcvYR7z3I1wh3acIKBcTLLKur3vcDXRrBq9Lm2N3U/PmXZYbOio66WA/dIOitGzUH3jgebkDR4/wtV7K7ri5ZR7c08nm95BCEoeIsu+RK4PcZXHeM+FwxXiJdQrC/VVDPtuhE9rM/eGq+slBEiPARmM9IcDf3NvgUTvQ9z5R+iOsSBGKqX7qjjn1VMM1Bva234ric/zZcVq8yCFUpf2ZwdEbYHPA2xID3FCA+wdJ1kAgkMKTa1MyKAgCqFI131rg8H8fI=
 notifications:
