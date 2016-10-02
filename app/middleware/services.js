@@ -12,7 +12,7 @@ const Verror = require('verror');
 const distance = require('geo-dist-calc');
 
 function loadCommunityDentists(req, res, next) {
-  const path = 'resources/community_dentists.csv'
+  const path = '/Users/neilmclaughlin/work/nhshackday/connecting-to-services/resources/community_dentists_select.csv'
   const input = fs.createReadStream(path);
   const fileContents = fs.readFileSync(path, "utf8");
 
@@ -196,10 +196,6 @@ function renderServiceResults(req, res) {
 }
 
 function sortByDistanceInKms(a, b) {
-  if (a.distance === undefined || b.distance === undefined) {
-    console.log(a,b);
-    return -1
-  }
   return a.distance.kilometers - b.distance.kilometers;
 }
 
@@ -251,6 +247,8 @@ function getCoordinatesForSearchLocation(req, res, next) {
         }
         /* eslint-enable no-param-reassign */
       } catch (e) {
+        // intentionally left empty to allow pharmacies without any opening time
+        // to be displayed without crashing the app
         console.log(e);
       }
     },
