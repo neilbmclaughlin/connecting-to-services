@@ -11,8 +11,18 @@ const pharmacyMapper = require('../lib/pharmacyMapper');
 const Verror = require('verror');
 const distance = require('geo-dist-calc');
 
+function Capitalize(string) {
+  return string ? 
+    string.replace(/\w\S*/g, function(t){return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase();}) :
+    '';
+}
+
+function stringClean(string) {
+  return string ? Capitalize(string .trim()): '';
+}
+
 function loadCommunityDentists(req, res, next) {
-  const path = '/Users/neilmclaughlin/work/nhshackday/connecting-to-services/resources/community_dentists_select.csv'
+  const path = 'resources/community_dentists.csv'
   const input = fs.createReadStream(path);
   const fileContents = fs.readFileSync(path, "utf8");
 
@@ -25,14 +35,15 @@ function loadCommunityDentists(req, res, next) {
     while(communityDentist = parser.read()){
       communityDentistArray.push( {
             label: 'Community Dental Service',
-            name: communityDentist[5],
+            name: stringClean(communityDentist[5]),
             addressLine: [
-              communityDentist[8],
-              communityDentist[9],
-              communityDentist[10],
-              communityDentist[11]
+              stringClean(communityDentist[7]),
+              stringClean(communityDentist[8]),
+              stringClean(communityDentist[9]),
+              stringClean(communityDentist[10]),
+              stringClean(communityDentist[11]).toUpperCase(), 
             ],
-            postcode: communityDentist[11], 
+            postcode: stringClean(communityDentist[11]).toUpperCase(),
           })
     }
   });
@@ -196,6 +207,11 @@ function renderServiceResults(req, res) {
 }
 
 function sortByDistanceInKms(a, b) {
+  if (a.distance === undefined || b.distance === undefined) {
+    // Hack to handle postcodes which are not found by postcode.io
+    console.log(a, b);
+    return 1;
+  }
   return a.distance.kilometers - b.distance.kilometers;
 }
 
