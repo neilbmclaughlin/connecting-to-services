@@ -76,5 +76,8 @@
 
     </article>
     </main>
+    <footer role="contentinfo">
+      {% include "includes/footer.nunjucks" %}
+    </footer>
   </body>
 </html>
